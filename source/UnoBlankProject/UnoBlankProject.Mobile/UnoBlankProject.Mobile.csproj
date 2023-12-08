@@ -23,24 +23,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Uno.Resizetizer" Version="1.2.1" />
-    <PackageReference Include="Uno.WinUI" Version="5.0.64" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    <PackageReference Include="Uno.Extensions.Configuration" Version="3.0.11" />
-    <PackageReference Include="Uno.Toolkit.WinUI" Version="5.0.17" />
-    <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="3.0.11" />
-    <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="3.0.11" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
-    <PackageReference Include="Uno.Extensions.Logging.OSLog" Version="1.7.0" />
-    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.64" />
-    <PackageReference Include="Uno.WinUI.DevServer" Version="5.0.64" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.WinUI" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Uno.Extensions.Configuration" />
+    <PackageReference Include="Uno.Toolkit.WinUI" />
+    <PackageReference Include="Uno.Extensions.Hosting.WinUI" />
+    <PackageReference Include="Uno.Extensions.Localization.WinUI" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" />
+    <PackageReference Include="Uno.Extensions.Logging.OSLog" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
+    <PackageReference Include="Uno.WinUI.DevServer" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
   <Choose>
     <When Condition="$(IsAndroid)">
       <ItemGroup>
 
-        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.1" />
-        <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.36" />
+        <PackageReference Include="Xamarin.Google.Android.Material" />
+        <PackageReference Include="Uno.UniversalImageLoader" />
       </ItemGroup>
       <ItemGroup>
         <AndroidEnvironment Include="Android/environment.conf" />

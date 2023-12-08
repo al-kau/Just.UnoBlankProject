@@ -22,18 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Uno.Resizetizer" Version="1.2.1" />
-    <PackageReference Include="Uno.WinUI" Version="5.0.64" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    <PackageReference Include="Uno.Extensions.Configuration" Version="3.0.11" />
-    <PackageReference Include="Uno.Toolkit.WinUI" Version="5.0.17" />
-    <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="3.0.11" />
-    <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="3.0.11" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
-    <PackageReference Include="Uno.Core.Extensions.Logging.Singleton" Version="4.0.1" />
-    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.64" />
+    <PackageReference Include="Uno.WinUI" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Uno.Extensions.Configuration" />
+    <PackageReference Include="Uno.Toolkit.WinUI" />
+    <PackageReference Include="Uno.Extensions.Hosting.WinUI" />
+    <PackageReference Include="Uno.Extensions.Localization.WinUI" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" />
+    <PackageReference Include="Uno.Core.Extensions.Logging.Singleton" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
   </ItemGroup>
 
   <ItemGroup>
