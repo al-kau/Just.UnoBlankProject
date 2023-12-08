@@ -33,6 +33,7 @@
     - Console
 - Features
   - Toolkit
+  - Central Package Management
 - Authentication
   - None
 - Testing

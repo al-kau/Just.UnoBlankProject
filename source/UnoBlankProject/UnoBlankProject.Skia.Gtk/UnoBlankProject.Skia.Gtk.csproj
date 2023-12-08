@@ -11,18 +11,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Uno.Resizetizer" Version="1.2.1" />
-    <PackageReference Include="Uno.WinUI.Skia.Gtk" Version="5.0.64" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    <PackageReference Include="Uno.Extensions.Configuration" Version="3.0.11" />
-    <PackageReference Include="Uno.Toolkit.WinUI" Version="5.0.17" />
-    <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="3.0.11" />
-    <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="3.0.11" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
-    <PackageReference Include="SkiaSharp.Views.Uno.WinUI" Version="2.88.6" />
-    <PackageReference Include="SkiaSharp.Skottie" Version="2.88.6" />
-    <PackageReference Include="Uno.WinUI.DevServer" Version="5.0.64" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.64" />
+    <PackageReference Include="Uno.WinUI.Skia.Gtk" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Uno.Extensions.Configuration" />
+    <PackageReference Include="Uno.Toolkit.WinUI" />
+    <PackageReference Include="Uno.Extensions.Hosting.WinUI" />
+    <PackageReference Include="Uno.Extensions.Localization.WinUI" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" />
+    <PackageReference Include="SkiaSharp.Views.Uno.WinUI" />
+    <PackageReference Include="SkiaSharp.Skottie" />
+    <PackageReference Include="Uno.WinUI.DevServer" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnoBlankProject\UnoBlankProject.csproj" />

@@ -7,6 +7,8 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>True</DebugSymbols>
 
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+
     <!--
       Adding NoWarn to remove build warnings
       NU1507: Warning when there are multiple package sources when using CPM with no source mapping
