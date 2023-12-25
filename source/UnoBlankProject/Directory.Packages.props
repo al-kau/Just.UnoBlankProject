@@ -18,7 +18,7 @@
     <PackageVersion Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.7.0" />
     <PackageVersion Include="Uno.Toolkit.WinUI" Version="5.0.17" />
     <PackageVersion Include="Uno.Resizetizer" Version="1.2.1" />
-    <PackageVersion Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.64" />
+    <PackageVersion Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.118" />
     <PackageVersion Include="Uno.UniversalImageLoader" Version="1.9.36" />
     <PackageVersion Include="Uno.Wasm.Bootstrap" Version="8.0.4" />
     <PackageVersion Include="Uno.Wasm.Bootstrap.DevServer" Version="8.0.4" />
