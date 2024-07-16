@@ -25,6 +25,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Download uno-check manifest
+        id: uno-check-manifest
+        uses: ./.github/steps/uno-check-manifest
+
+      - name: Get .NET version (The Uno Platform requirement)
+        id: dotnet-uno-version
+        shell: bash
+        run: |
+          version="${{ fromJson(env.uno-check-manifest).check.variables.DOTNET_SDK_VERSION }}"
+          echo "dotnet-version=$version" >> $GITHUB_OUTPUT
+        env:
+            uno-check-manifest: ${{ steps.uno-check-manifest.outputs.uno-check-manifest-json }}
+
+      - name: Setup .NET (The Uno Platform requirement)
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ steps.dotnet-uno-version.outputs.dotnet-version }}
+
       - name: Install Dependencies
         timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
         uses: "./.github/steps/install_dependencies"
