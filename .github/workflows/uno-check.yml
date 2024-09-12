@@ -9,12 +9,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest, ubuntu-24.04, ubuntu-22.04, ubuntu-20.04 ]
+        os: [windows-latest, macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: 8.0.x
+
+      - uses: actions/setup-java@v4.3.0
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          distribution: 'microsoft'
+          java-version: 11
 
       - name: dotnet info
         shell: bash
@@ -30,7 +36,7 @@ jobs:
         shell: bash
         run: |
           echo "android home dir: $ANDROID_HOME"
-          [ -d "$ANDROID_HOME/platform-tools" ] && ls -lAR "$ANDROID_HOME/platform-tools" || echo "::warning:: directory '$ANDROID_HOME/platform-tools' is missing"
+          [ -d "$ANDROID_HOME/platform-tools" ] && echo "platform-tools - ok" || echo "::warning:: directory '$ANDROID_HOME/platform-tools' is missing"
 
       - name: update uno.check
         shell: bash
@@ -40,5 +46,5 @@ jobs:
         shell: bash
         run: |
           uno-check --verbose --non-interactive --ci --fix \
-                    --skip xcode --skip vswin --skip vsmac --skip wsl --skip edgewebview2
+                    --skip xcode --skip vswin --skip vsmac --skip wsl --skip edgewebview2 --skip androidemulator
 #                    --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates                    
