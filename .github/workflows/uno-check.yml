@@ -32,19 +32,6 @@ jobs:
           echo "android home dir: $ANDROID_HOME"
           [ -d "$ANDROID_HOME/platform-tools" ] && ls -lAR "$ANDROID_HOME/platform-tools" || echo "::warning:: directory '$ANDROID_HOME/platform-tools' is missing"
 
-      - name: check linux os
-        id: is-linux
-        shell: bash
-        run: | 
-          is_linux=$([ "$RUNNER_OS" == "Linux" ] && echo "true" || echo "false")
-          echo "linux=$is_linux" >> $GITHUB_OUTPUT
-
-      - name: update AndroidSDK
-        if: ${{ steps.is-linux.outputs.linux == 'true' }}
-        shell: bash
-        run: |
-          android list sdk -u
-
       - name: update uno.check
         shell: bash
         run: dotnet tool update uno.check --global
@@ -52,5 +39,6 @@ jobs:
       - name: run uno.check
         shell: bash
         run: |
-          uno-check --verbose --non-interactive --ci --fix --target all \
-                    --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
+          uno-check --verbose --non-interactive --ci --fix \
+                    --skip xcode --skip vswin --skip vsmac --skip wsl --skip edgewebview2
+#                    --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates                    
