@@ -1,0 +1,21 @@
+---
+
+on:
+  workflow_dispatch:
+jobs:
+  uno-check:
+    runs-on: [ "windows-latest", "linux-latest", "macos-latest" ]
+    steps:
+      - uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: 8.0.x
+      - name: dotnet info
+        run: |
+          dotnet --version
+          dotnet --info
+
+      - name: update uno.check
+        run: dotnet tool update uno.check --global
+
+      - name: update uno.check
+        run: uno-check --non-interactive --fix --ci --target all --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
