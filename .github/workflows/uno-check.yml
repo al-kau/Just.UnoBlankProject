@@ -15,11 +15,16 @@ jobs:
       - uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: 8.0.x
+
       - name: dotnet info
         shell: bash
         run: |
           dotnet --version
           dotnet --info
+
+      - name: print env
+        shell: bash
+        run: printenv
 
       - name: update uno.check
         shell: bash
