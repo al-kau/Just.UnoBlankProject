@@ -16,12 +16,17 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: dotnet info
+        shell: bash
         run: |
           dotnet --version
           dotnet --info
 
       - name: update uno.check
+        shell: bash
         run: dotnet tool update uno.check --global
 
-      - name: update uno.check
-        run: uno-check --non-interactive --fix --ci --target all --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
+      - name: run uno.check
+        shell: bash
+        run: |
+          uno-check --verbose --non-interactive --ci --fix --target all \
+                    --skip vswin --skip vsmac --skip xcode --skip vswinworkloads --skip androidemulator --skip dotnetnewunotemplates
