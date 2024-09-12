@@ -1,10 +1,16 @@
 ---
 
+name: uno.check
+
 on:
   workflow_dispatch:
 jobs:
   uno-check:
-    runs-on: [ "windows-latest", "linux-latest", "macos-latest" ]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-dotnet@v4.0.1
         with:
