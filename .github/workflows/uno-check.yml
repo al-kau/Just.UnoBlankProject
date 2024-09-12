@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest, macos-latest, ubuntu-latest, ubuntu-24.04, ubuntu-22.04, ubuntu-20.04 ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-dotnet@v4.0.1
@@ -30,7 +30,20 @@ jobs:
         shell: bash
         run: |
           echo "android home dir: $ANDROID_HOME"
-          ls -lAR "$ANDROID_HOME"
+          ls -lAR "$ANDROID_HOME/platform-tools"
+
+      - name: check linux os
+        id: is-linux
+        shell: bash
+        run: | 
+          is_linux=$([ "$RUNNER_OS" == "Linux" ] && echo "true" || echo "false")
+          echo "linux=$is_linux" >> $GITHUB_OUTPUT
+
+      - name: update AndroidSDK
+        if: ${{ steps.is-linux.outputs.linux == 'true' }}
+        shell: bash
+        run: |
+          android list sdk -u
 
       - name: update uno.check
         shell: bash
