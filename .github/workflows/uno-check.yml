@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           echo "android home dir: $ANDROID_HOME"
-          ls -lAR "$ANDROID_HOME/platform-tools"
+          [ -d "$ANDROID_HOME/platform-tools" ] && ls -lAR "$ANDROID_HOME/platform-tools" || echo "::warning:: directory '$ANDROID_HOME/platform-tools' is missing"
 
       - name: check linux os
         id: is-linux
