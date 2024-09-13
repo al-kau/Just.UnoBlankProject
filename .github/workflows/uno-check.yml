@@ -20,11 +20,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
-        a-param: [A, AA]
+        type: [file, url]
         include:
-          - a-param: A
-            b-param: B
-          - a-param: AA
+          - type: file
+            a-param: A
+            b-param: 'https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}/.github/workflows/uno-check.yml'
+          - type: url
+            a-param: AA
             b-param: BB
     runs-on: ${{ matrix.os }}
     steps:
@@ -46,6 +48,7 @@ jobs:
           echo "GITHUB_REF is $GITHUB_REF"
           echo "runner.os is ${{ runner.os }}"
 
+          echo "matrix.type is ${{ matrix.type }}"
           echo "matrix.a-param is ${{ matrix.a-param }}"
           echo "matrix.b-param is ${{ matrix.b-param }}"
 
