@@ -17,7 +17,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - uses: actions/setup-java@v4.3.0
-        if: ${{ env.RUNNER_OS == 'linux' }}
+        if: ${{ env.RUNNER_OS == 'Linux' }}
         with:
           distribution: 'microsoft'
           java-version: 11
