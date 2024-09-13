@@ -58,9 +58,19 @@ jobs:
           file="$(cat ./uno-check.log)"
 
           pattern='Loading Manifest from: (\S*)'
-          [[ "$file" =~ $pattern ]] && manifest="${BASH_REMATCH[1]}"
+          [[ "$file" =~ $pattern ]] && manifest_url="${BASH_REMATCH[1]}"
 
-          echo "manifest=$manifest" >> $GITHUB_OUTPUT
+          echo "manifest url: $manifest_url"
+
+          wget --quiet --output-document="./manifest.json" "$manifest_url"
+
+          manifest_content=$(cat ./manifest.json)
+
+          echo "manifest content: $manifest_content"
+
+          echo "manifest<<EOF" >> $GITHUB_OUTPUT
+          echo "$manifest_content" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - shell: bash
         run: |
