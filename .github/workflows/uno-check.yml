@@ -65,7 +65,7 @@ jobs:
           echo "manifest url: $manifest_url"
           echo "BASH_REMATCH[0]: ${BASH_REMATCH[0]}"
 
-          curl --location --silent --output="./manifest.json" "$manifest_url"
+          curl --location --compressed --silent --output "./manifest.json" "$manifest_url"
 
           manifest_content=$(cat ./manifest.json)
 
