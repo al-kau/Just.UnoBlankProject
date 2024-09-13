@@ -3,6 +3,16 @@
 name: uno.check
 
 on:
+  push:
+    branches:
+      - main
+      - release/**
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - release/**
   workflow_dispatch:
 jobs:
   uno-check:
@@ -25,7 +35,7 @@ jobs:
       - name: print env
         shell: bash
         run: |
-          echo "env.RUNNER_OS is ${{ env.RUNNER_OS }}"
+          echo "GITHUB_REF_NAME is $GITHUB_REF_NAME"
           echo "runner.os is ${{ runner.os }}"
           printenv
 
