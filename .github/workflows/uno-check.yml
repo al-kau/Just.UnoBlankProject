@@ -64,6 +64,8 @@ jobs:
 
       - shell: bash
         run: |
+          echo "manifest:"
+          echo '${{ steps.manifest.outputs.manifest }}'
           echo "openjdk version: ${{ fromJson( steps.manifest.outputs.manifest).check.openjdk.version }}"
 
       - uses: actions/setup-java@v4.3.0
