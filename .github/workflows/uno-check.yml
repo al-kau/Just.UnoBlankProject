@@ -20,6 +20,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
+        include:
+          - a-param: A
+            b-param: B
+          - a-param: AA
+            b-param: BB
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-dotnet@v4.0.1
@@ -39,6 +44,9 @@ jobs:
           echo "GITHUB_HEAD_REF is $GITHUB_HEAD_REF"
           echo "GITHUB_REF is $GITHUB_REF"
           echo "runner.os is ${{ runner.os }}"
+
+          echo "matrix.a-param is ${{ matrix.a-param }}"
+          echo "matrix.b-param is ${{ matrix.b-param }}"
 
           echo "this: https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}/.github/workflows/uno-check.yml"
          
