@@ -80,7 +80,7 @@ jobs:
           echo "openjdk version: ${{ fromJson( steps.manifest.outputs.manifest ).check.openjdk.version }}"
 
       - uses: actions/setup-java@v4.3.0
-        if: ${{ runner.os == 'Linux' }}
+        #if: ${{ runner.os == 'Linux' }}
         with:
           distribution: 'microsoft'
           java-version: ${{ fromJson( steps.manifest.outputs.manifest ).check.openjdk.version }}
