@@ -16,12 +16,6 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - uses: actions/setup-java@v4.3.0
-        if: ${{ runner.os == 'Linux' }}
-        with:
-          distribution: 'microsoft'
-          java-version: 11
-
       - name: dotnet info
         shell: bash
         run: |
@@ -40,9 +34,44 @@ jobs:
         run: dotnet tool install uno.check --global
 
       - name: list uno.check checkups
+        id: skip
         shell: bash
-        run: uno-check list
+        run: |
+          uno-check list > ./uno-check-list.log
 
+          file="$(cat uno-check-list.log)"
+          skip=""
+
+          pattern='\(([^\)]*)\)([^$]*)'
+          while [[ $file =~ $pattern ]]; do
+            skip="$skip --skip=${BASH_REMATCH[1]}"
+            file=${BASH_REMATCH[2]}
+          done
+         
+          echo "skip=$skip" >> $GITHUB_OUTPUT
+
+      - name: manifest uno.check
+        id: manifest
+        shell: bash
+        run: |
+          uno-check --verbose --non-interactive --ci ${{ steps.skip.outputs.skip }} --logfile=./uno-check.log
+          file="$(cat ./uno-check.log)"
+
+          pattern='Loading Manifest from: (\S*)'
+          [[ "$file" =~ $pattern ]] && manifest="${BASH_REMATCH[1]}"
+
+          echo "manifest=$manifest" >> $GITHUB_OUTPUT
+
+      - shell: bash
+        run: |
+          echo "openjdk version: ${{ fromJson( steps.manifest.outputs.manifest).check.openjdk.version }}"
+
+      - uses: actions/setup-java@v4.3.0
+        if: ${{ runner.os == 'Linux' }}
+        with:
+          distribution: 'microsoft'
+          java-version: 11          
+                    
       - name: run uno.check
         shell: bash
         run: |
