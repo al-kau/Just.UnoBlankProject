@@ -74,16 +74,14 @@ jobs:
 
       - shell: bash
         run: |
-          echo "manifest:"
-          echo '${{ steps.manifest.outputs.manifest }}'
-          echo "openjdk version: ${{ fromJson( steps.manifest.outputs.manifest).check.openjdk.version }}"
+          echo "openjdk version: ${{ fromJson( steps.manifest.outputs.manifest ).check.openjdk.version }}"
 
       - uses: actions/setup-java@v4.3.0
         if: ${{ runner.os == 'Linux' }}
         with:
           distribution: 'microsoft'
-          java-version: 11          
-                    
+          java-version: ${{ fromJson( steps.manifest.outputs.manifest ).check.openjdk.version }}
+
       - name: run uno.check
         shell: bash
         run: |
