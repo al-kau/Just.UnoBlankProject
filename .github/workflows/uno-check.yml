@@ -59,11 +59,11 @@ jobs:
 
           echo "log: $file"
 
-          pattern='Loading Manifest from: (\S*)'
+          pattern='Loading Manifest from: ([^[:space:]]*)'
           [[ "$file" =~ $pattern ]] && manifest_url="${BASH_REMATCH[1]}"
 
           echo "manifest url: $manifest_url"
-          echo "BASH_REMATCH[0]: ${BASH_REMATCH[1]}"
+          echo "BASH_REMATCH[0]: ${BASH_REMATCH[0]}"
 
           wget --quiet --output-document="./manifest.json" "$manifest_url"
 
