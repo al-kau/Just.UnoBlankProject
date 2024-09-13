@@ -39,6 +39,9 @@ jobs:
           echo "GITHUB_HEAD_REF is $GITHUB_HEAD_REF"
           echo "GITHUB_REF is $GITHUB_REF"
           echo "runner.os is ${{ runner.os }}"
+
+          echo "this: https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}/.github/workflows/uno-check.yml"
+         
           printenv
 
       - name: update uno.check
