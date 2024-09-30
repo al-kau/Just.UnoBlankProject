@@ -12,7 +12,7 @@
     <PackageVersion Include="Uno.Extensions.Configuration" Version="5.0.2" />
     <PackageVersion Include="Uno.Extensions.Hosting" Version="5.0.2" />
     <PackageVersion Include="Uno.Extensions.Hosting.WinUI" Version="4.1.24" />
-    <PackageVersion Include="Uno.Extensions.Localization" Version="4.2.2" />
+    <PackageVersion Include="Uno.Extensions.Localization" Version="5.0.2" />
     <PackageVersion Include="Uno.Extensions.Localization.WinUI" Version="4.1.21" />
     <PackageVersion Include="Uno.Extensions.Logging.OSLog" Version="1.7.0" />
     <PackageVersion Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.7.0" />
