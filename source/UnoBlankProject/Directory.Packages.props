@@ -16,7 +16,7 @@
     <PackageVersion Include="Uno.Extensions.Localization.WinUI" Version="4.1.21" />
     <PackageVersion Include="Uno.Extensions.Logging.OSLog" Version="1.7.0" />
     <PackageVersion Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.7.0" />
-    <PackageVersion Include="Uno.Toolkit.WinUI" Version="6.1.8" />
+    <PackageVersion Include="Uno.Toolkit.WinUI" Version="6.2.6" />
     <PackageVersion Include="Uno.Resizetizer" Version="1.6.0" />
     <PackageVersion Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.4.27" />
     <PackageVersion Include="Uno.UniversalImageLoader" Version="1.9.36" />
