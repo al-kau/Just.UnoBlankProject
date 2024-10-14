@@ -33,4 +33,4 @@ jobs:
 
       - name: Build UnoBlankProject (Debug)
         shell: pwsh
-        run: msbuild ./UnoBlankProject/UnoBlankProject.csproj /r
+        run: msbuild ./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj /r

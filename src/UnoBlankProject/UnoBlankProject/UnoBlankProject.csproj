@@ -44,5 +44,8 @@
       ThemeService;
     </UnoFeatures>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnoBlankLibrary\UnoBlankLibrary.csproj" />
+  </ItemGroup>
 
 </Project>
