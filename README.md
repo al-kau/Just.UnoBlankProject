@@ -2,7 +2,7 @@
 
 ## Template 5.4.14.16
 
-### options
+### Options
 
 - Framework
   - .NET 8.0
