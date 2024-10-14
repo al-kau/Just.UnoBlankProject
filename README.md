@@ -1,8 +1,8 @@
 # Just.UnoBlankProject
 
-## Template 5.0.17.30
+## Template 5.4.14.16
 
-### options
+### Options
 
 - Framework
   - .NET 8.0
@@ -15,7 +15,7 @@
   - Desktop
     - macOS (Catalyst)
     - Windows
-    - GTK
+    - Desktop
 - Presentation
   - MVVM
 - Markup
@@ -30,10 +30,9 @@
   - Navigation
     - Blank
   - Logging
-    - Console
+    - Serilog
 - Features
   - Toolkit
-  - Central Package Management
 - Authentication
   - None
 - Testing
