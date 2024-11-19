@@ -35,8 +35,12 @@ jobs:
       - name: Info
         shell: bash
         run: |
-          ls
-          cat .\global.json
+          items=ls
+
+          echo "$items"
+
+          cat global.json
+
           dotnet workload --version
 
       - name: Install Workload 
