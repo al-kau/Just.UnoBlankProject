@@ -35,6 +35,7 @@ jobs:
       - name: Install Workload 
         shell: bash
         run: |
+          dotnet workload --version
           dotnet workload install ${{ matrix.workload-list }} --ignore-failed-sources --source "https://api.nuget.org/v3/index.json"
 
       - name: Setup the Uno Platform
