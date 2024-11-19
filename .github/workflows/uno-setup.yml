@@ -9,16 +9,19 @@ jobs:
 
   uno-setup:
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            workload-list: android ios maccatalyst macos maui
+          - os: macos-latest
+            workload-list: android ios maccatalyst macos
+          - os: ubuntu-latest
+            workload-list: android
+            
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          fetch-depth: 0
-          submodules: recursive
-
       - name: Setup .NET 8
         uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee # v4.0.1
         with:
@@ -32,7 +35,7 @@ jobs:
       - name: Setup .NET 9
         shell: bash
         run: |
-          dotnet workload install android ios maccatalyst macos maui --source "https://api.nuget.org/v3/index.json" --version "8.0.404"
+          dotnet workload install ${{ matrix.workload-list }} --source "https://api.nuget.org/v3/index.json" --version "8.0.404"
 
       - name: Setup the Uno Platform
         uses: finebits/github-actions/devhub/uno-platform/setup@4a126d80a11c5fdc83ce884d3d23dffb30bc4495 # v2.0.0
