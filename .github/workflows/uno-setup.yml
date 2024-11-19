@@ -32,6 +32,13 @@ jobs:
         with:
           dotnet-version: 9.x
 
+      - name: Info
+        shell: bash
+        run: |
+          ls
+          cat .\global.json
+          dotnet workload --version
+
       - name: Install Workload 
         shell: bash
         run: |
