@@ -35,11 +35,11 @@ jobs:
       - name: Info
         shell: bash
         run: |
+          echo "$PWD"
+        
           items=ls
 
           echo "$items"
-
-          cat global.json
 
           dotnet workload --version
 
