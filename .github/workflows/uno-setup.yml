@@ -68,7 +68,7 @@ jobs:
         run: |
           dotnet workload --version
           dotnet workload config --update-mode
-          dotnet workload install --from-rollback-file "workload.json" ${{ matrix.workload-list }} --source "https://api.nuget.org/v3/index.json"
+          dotnet workload install ${{ matrix.workload-list }} --source "https://api.nuget.org/v3/index.json"
 
       - name: Setup the Uno Platform
         uses: finebits/github-actions/devhub/uno-platform/setup@4a126d80a11c5fdc83ce884d3d23dffb30bc4495 # v2.0.0
