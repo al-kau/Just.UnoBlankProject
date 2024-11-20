@@ -5,6 +5,7 @@
   },
   "sdk": {
     "version": "8.0.100",
+    "workloadVersion": "8.0.100",
     "rollForward": "latestFeature",
     "allowPrerelease": false
   }
