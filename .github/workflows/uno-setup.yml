@@ -81,10 +81,7 @@ jobs:
           $dirs=$(ls $env:TEMP uno-check-* -Directory)
           echo $dirs
 
-          $files=$(ls "$env:TEMP/$($dirs[0])")
-          echo $files
-
-          $files | foreach { cat "$env:TEMP/$($dirs[0])/$_" }
+          $dirs | foreach { $(ls $_ -File) | foreach { echo "$_ content:"; cat $_ } }
 
       - name: Display .NET Information
         run: |
