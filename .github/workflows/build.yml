@@ -69,4 +69,4 @@ jobs:
       - name: Build via msbuild
         if: runner.os == 'Windows'
         shell: pwsh
-        run: msbuild ./src/UnoBlankProject/UnoBlankProject.sln /r
+        run: msbuild -target:Rebuild -restore:True -verbosity:minimal -consoleLoggerParameters:Summary .\src\UnoBlankProject\UnoBlankProject.sln
