@@ -78,14 +78,13 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $unochecks=$(ls $env:TEMP uno-check-* -Directory)
-          echo $unochecks
+          $dirs=$(ls $env:TEMP uno-check-* -Directory)
+          echo $dirs
 
           $files=$(ls "$env:TEMP/$($dirs[0])")
           echo $files
 
-          cat "$env:TEMP/$($dirs[0])/$($files[0])"
-          
+          $files | foreach { cat "$env:TEMP/$($dirs[0])/$_" }
 
       - name: Display .NET Information
         run: |
