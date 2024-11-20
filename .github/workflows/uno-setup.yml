@@ -87,3 +87,7 @@ jobs:
       - name: Display .NET Information
         run: |
           dotnet --info
+
+      - name: Display workload list
+        run: |
+          dotnet workload list
