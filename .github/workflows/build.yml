@@ -50,7 +50,16 @@ jobs:
         run: |
           dotnet workload list
 
-      - name: Build via msbuild
+      - name: Build All via msbuild
         if: runner.os == 'Windows'
         shell: pwsh
         run: msbuild -target:Rebuild -restore:True -verbosity:minimal -consoleLoggerParameters:Summary .\src\UnoBlankProject\UnoBlankProject.sln
+
+      - name: Build maccatalyst via dotnet
+        if: runner.os == 'macOS'
+        shell: pwsh
+        run: dotnet build --configuration=debug --framework=net9.0-maccatalyst --verbosity=minimal --nologo ".\src\UnoBlankProject\UnoBlankProject\UnoBlankProject.csproj"
+
+      - name: Build desktop via dotnet
+        shell: pwsh
+        run: dotnet build --configuration=debug --framework=net9.0-desktop --verbosity=minimal --nologo ".\src\UnoBlankProject\UnoBlankProject\UnoBlankProject.csproj"
