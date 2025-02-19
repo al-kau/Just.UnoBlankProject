@@ -7,7 +7,7 @@ on: # yamllint disable-line rule:truthy
   
 jobs:
 
-  uno-setup:            
+  uno-publish-macos:            
     runs-on: macos-latest
     steps:
       - name: Checkout
