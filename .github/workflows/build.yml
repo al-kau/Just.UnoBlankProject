@@ -58,7 +58,9 @@ jobs:
       - name: Build maccatalyst via dotnet
         if: runner.os == 'macOS'
         shell: pwsh
-        run: dotnet build --configuration=debug --framework=net9.0-maccatalyst --verbosity=minimal --nologo ".\src\UnoBlankProject\UnoBlankProject\UnoBlankProject.csproj"
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_16.1.app"
+          dotnet build --configuration=debug --framework=net9.0-maccatalyst --verbosity=minimal --nologo ".\src\UnoBlankProject\UnoBlankProject\UnoBlankProject.csproj"
 
       - name: Build desktop via dotnet
         shell: pwsh
