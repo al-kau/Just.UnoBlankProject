@@ -12,13 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
-        include:
-          - os: windows-latest
-            workload-list: android ios maccatalyst macos maui
-          - os: macos-latest
-            workload-list: android ios maccatalyst macos maui
-          - os: ubuntu-latest
-            workload-list: android maui-android
             
     runs-on: ${{ matrix.os }}
     steps:
@@ -37,17 +30,8 @@ jobs:
         if: runner.os == 'Windows'
         uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2.0.0
 
-      - name: Install Workload 
-        shell: bash
-        run: |
-          dotnet workload --version
-          dotnet workload config --update-mode
-          dotnet workload install ${{ matrix.workload-list }} --source "https://api.nuget.org/v3/index.json"
-
       - name: Setup the Uno Platform
         uses: finebits/github-actions/devhub/uno-platform/setup@4a126d80a11c5fdc83ce884d3d23dffb30bc4495 # v2.0.0
-        with:
-          uno-check-manifest: https://raw.githubusercontent.com/unoplatform/uno.check/95904fd037afa7714b695716dddfc5f4c2acf138/manifests/uno.ui.manifest.json  # "DOTNET_SDK_VERSION": "8.0.401"
 
       - name: Display dir '$env:TEMP'
         if: runner.os == 'Windows'
