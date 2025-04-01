@@ -29,13 +29,38 @@ jobs:
 
       - name: Publish maccatalyst app
         run: |
-          mkdir -p "./publish/app/"
-          dotnet publish --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=false -o "./publish/app" "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj"
+          mkdir -p "./publish/maccatalyst/app/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=false -o "publish/maccatalyst/app"
+          cp -r ./src/UnoBlankProject/UnoBlankProject/bin/Release/net9.0-maccatalyst/*.app  ./publish/maccatalyst/app
 
       - name: Publish maccatalyst pkg
         run: |
-          mkdir -p "./publish/pkg/"
-          dotnet publish --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=true -o "./publish/pkg" "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj"
+          mkdir -p "./publish/maccatalyst/pkg/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=true -o "publish/maccatalyst/pkg"
+
+      - name: Prepare desktop publish
+        run: |
+          dotnet build "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --target:TargetFrameworks-Desktop --no-restore
+
+      - name: Publish mac-desktop bin
+        run: |
+          mkdir -p "./publish/desktop/x64/bin/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -o "publish/desktop/x64/bin" 
+
+      - name: Publish mac-desktop app
+        run: |
+          mkdir -p "./publish/desktop/x64/app/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -o "publish/desktop/x64/app"
+
+      - name: Publish mac-desktop pkg
+        run: |
+          mkdir -p "./publish/desktop/x64/pkg/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg  -o "publish/desktop/x64/pkg"
+
+      - name: Publish mac-desktop dmg
+        run: |
+          mkdir -p "./publish/desktop/x64/dmg/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg  -o "publish/desktop/x64/dmg"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
