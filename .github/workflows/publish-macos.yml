@@ -7,7 +7,7 @@ on: # yamllint disable-line rule:truthy
   
 jobs:
 
-  uno-setup:            
+  publish-macos-packages:            
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -45,24 +45,30 @@ jobs:
       - name: Publish mac-desktop bin
         run: |
           mkdir -p "./publish/desktop/x64/bin/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -o "publish/desktop/x64/bin" 
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -o "publish/desktop/x64/bin" 
 
       - name: Publish mac-desktop app
         run: |
           mkdir -p "./publish/desktop/x64/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -o "publish/desktop/x64/app"
-
-      - name: Publish mac-desktop pkg
-        run: |
-          mkdir -p "./publish/desktop/x64/pkg/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg  -o "publish/desktop/x64/pkg"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -o "publish/desktop/x64/app"
 
       - name: Publish mac-desktop dmg
         run: |
           mkdir -p "./publish/desktop/x64/dmg/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg  -o "publish/desktop/x64/dmg"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg  -o "publish/desktop/x64/dmg"
 
+      - name: Publish mac-desktop pkg
+        run: |
+          mkdir -p "./publish/desktop/x64/pkg/"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg  -o "publish/desktop/x64/pkg"
+
+      - name: Total
+        if: always()
+        run: |
+          ls ./publish -alR
+      
       - name: Upload Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: macos-packages
