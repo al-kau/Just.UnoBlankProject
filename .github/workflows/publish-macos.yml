@@ -27,41 +27,53 @@ jobs:
       - name: Switch Xcode
         run: sudo xcode-select -switch "/Applications/Xcode_16.2.app"
 
+      - name: Import certificate
+        run: |
+          security create-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" build.keychain
+
+          echo "${{ secrets.MACOS_CERTIFICATE }}" | base64 --decode > certificate.p12
+          security import certificate.p12 -k build.keychain -P "${{ secrets.MACOS_CERTIFICATE_PWD }}" -T /usr/bin/codesign
+
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${{ secrets.KEYCHAIN_PASSWORD }}" build.keychain
+  
+          # xcrun notarytool store-credentials "AC_PASSWORD" --apple-id "${{ secrets.APPLE_ID }}" --team-id ${{ secrets.TEAM_ID }} --password "${{ secrets.NOTARY_TOOL_PASSWORD }}"
+
       - name: Publish maccatalyst app
         run: |
           mkdir -p "./publish/maccatalyst/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=false -o "publish/maccatalyst/app"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=false -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:CodeSigningKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:EnableCodeSigning=true -o "publish/maccatalyst/app"
           cp -r ./src/UnoBlankProject/UnoBlankProject/bin/Release/net9.0-maccatalyst/*.app  ./publish/maccatalyst/app
 
       - name: Publish maccatalyst pkg
         run: |
           mkdir -p "./publish/maccatalyst/pkg/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=true -o "publish/maccatalyst/pkg"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=minimal --nologo -p:CreatePackage=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:CodeSigningKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:EnableCodeSigning=true -o "publish/maccatalyst/pkg"
 
       - name: Prepare desktop publish
         run: |
-          dotnet clean "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj"
           dotnet build "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --target:TargetFrameworks-Desktop --no-restore
 
       - name: Publish mac-desktop bin
         run: |
           mkdir -p "./publish/desktop/x64/bin/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/bin"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/bin"
 
       - name: Publish mac-desktop app
         run: |
           mkdir -p "./publish/desktop/x64/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/app"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/app"
 
       # - name: Publish mac-desktop dmg
       #  run: |
       #    mkdir -p "./publish/desktop/x64/dmg/"
-      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/dmg"
+      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/dmg"
 
       # - name: Publish mac-desktop pkg
       #  run: |
       #    mkdir -p "./publish/desktop/x64/pkg/"
-      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/pkg"
+      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/pkg"
     
       - name: Upload Artifacts
         if: always()
