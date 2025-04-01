@@ -58,22 +58,22 @@ jobs:
       - name: Publish mac-desktop bin
         run: |
           mkdir -p "./publish/desktop/x64/bin/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/bin"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/bin"
 
       - name: Publish mac-desktop app
         run: |
           mkdir -p "./publish/desktop/x64/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/app"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/app"
 
       # - name: Publish mac-desktop dmg
       #  run: |
       #    mkdir -p "./publish/desktop/x64/dmg/"
-      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/dmg"
+      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=dmg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/dmg"
 
       # - name: Publish mac-desktop pkg
       #  run: |
       #    mkdir -p "./publish/desktop/x64/pkg/"
-      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --runtime=osx-x64 --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/pkg"
+      #    dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=minimal --nologo -p:SelfContained=true -p:PackageFormat=pkg -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -o "publish/desktop/x64/pkg"
     
       - name: Upload Artifacts
         if: always()
