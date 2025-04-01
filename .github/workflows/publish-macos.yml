@@ -25,7 +25,7 @@ jobs:
         uses: finebits/github-actions/devhub/uno-platform/setup@4a126d80a11c5fdc83ce884d3d23dffb30bc4495 # v2.0.0
 
       - name: Switch Xcode
-        run: sudo xcode-select -switch "/Applications/Xcode_16.1.app"
+        run: sudo xcode-select -switch "/Applications/Xcode_16.2.app"
 
       - name: Publish maccatalyst app
         run: |
