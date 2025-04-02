@@ -65,6 +65,18 @@ jobs:
         run: |
           mkdir -p "./publish/desktop/x64/app/"
           dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:PublishSingleFile=true -o "publish/desktop/x64/app"
+
+      - name: Notary
+        run: |
+          rm "./publish/desktop/x64/app/UnoBlankProject.app/Contents/MacOS/*.pdb"
+
+          # zip bundle
+          ditto -c -k --sequesterRsrc --keepParent "./publish/desktop/x64/app/UnoBlankProject.app" "./publish/desktop/x64/app/UnoBlankProject.app.zip"
+          
+          xcrun notarytool submit "./publish/desktop/x64/app/UnoBlankProject.app.zip" --wait --keychain-profile "NOTARY_TOOL_PROFILE"
+
+          xcrun stapler staple "./publish/desktop/x64/app/UnoBlankProject.app"
+          
  
       # - name: Publish mac-desktop bin
       #   run: |
