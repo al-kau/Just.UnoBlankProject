@@ -68,8 +68,9 @@ jobs:
 
       - name: Notary
         run: |
-          rm "./publish/desktop/x64/app/UnoBlankProject.app/Contents/MacOS/*.pdb"
 
+          ls -alR ./publish/desktop/x64/app/
+        
           # zip bundle
           ditto -c -k --sequesterRsrc --keepParent "./publish/desktop/x64/app/UnoBlankProject.app" "./publish/desktop/x64/app/UnoBlankProject.app.zip"
           
