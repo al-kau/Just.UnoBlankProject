@@ -6,4 +6,20 @@
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)/UnoBlankProject/UnoBlankProject.csproj" Query="/Project/PropertyGroup/TargetFrameworks" Value="net9.0-desktop" />
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)/UnoBlankLibrary/UnoBlankLibrary.csproj" Query="/Project/PropertyGroup/TargetFrameworks" Value="net9.0%3Bnet9.0-desktop" />
   </Target>
+
+  <Target Name="RenameAppsettings" BeforeTargets="Publish">
+    <Move SourceFiles="$(PublishDir)\appsettings.Production.json" DestinationFiles="$(PublishDir)\appsettings.json" />
+    <Delete Files="$(PublishDir)\appsettings.Development.json" />
+  </Target>
+
+  <!-- Unfortunately, command-line args -p:DebugType=None -p:DebugSymbols=false started working only for the main project,
+	     PDBs from other projects are still included. Looks like this is the most reliable way to remove PDBs.
+		   Source https://github.com/dotnet/sdk/issues/16975#issuecomment-1689291544 -->
+	<Target Name="DeletePDBFiles" BeforeTargets="Publish">
+		<Delete Files="$(PublishDir)*.pdb">
+      <Output TaskParameter="DeletedFiles" ItemName="DeletedList"/>
+		</Delete>
+		<Message Text="Deleted PDB files: @(DeletedList)" Importance="high" />
+	</Target>
+
 </Project>
