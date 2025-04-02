@@ -8,7 +8,7 @@
     <!-- Display name -->
     <ApplicationTitle>UnoBlankProject</ApplicationTitle>
     <!-- App Identifier -->
-    <ApplicationId>com.UnoBlankProject</ApplicationId>
+    <ApplicationId>com.finebits.testapp</ApplicationId>
     <!-- Versions -->
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
