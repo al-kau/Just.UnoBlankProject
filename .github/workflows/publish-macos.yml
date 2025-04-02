@@ -63,13 +63,13 @@ jobs:
 
       - name: Publish mac-desktop app
         run: |
-          mkdir -p "./publish/desktop/x64/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:PublishSingleFile=true -o "publish/desktop/x64/app"
+          mkdir -p "./publish/desktop/x64/app"
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:PublishSingleFile=true -p:UnoMacOSIncludeDebugSymbols=false -o "./publish/desktop/x64/app"
 
       - name: Notary
         run: |
 
-          ls -alR ./publish/desktop/x64/app/
+          ls -alR ./publish/desktop/x64/app
         
           # zip bundle
           ditto -c -k --sequesterRsrc --keepParent "./publish/desktop/x64/app/UnoBlankProject.app" "./publish/desktop/x64/app/UnoBlankProject.app.zip"
