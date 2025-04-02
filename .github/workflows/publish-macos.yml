@@ -40,22 +40,22 @@ jobs:
   
           xcrun notarytool store-credentials "NOTARY_TOOL_PROFILE" --apple-id "${{ secrets.APPLE_ID }}" --team-id ${{ secrets.TEAM_ID }} --password "${{ secrets.NOTARY_TOOL_PASSWORD }}"
 
-      - name: Publish maccatalyst app
-        run: |
-          mkdir -p "./publish/maccatalyst/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=normal --nologo -p:CreatePackage=false -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:CodeSigningKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:EnableCodeSigning=true -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" -p:EnableCodeSigning=true -o "publish/maccatalyst/app" -bl
-          cp -r ./src/UnoBlankProject/UnoBlankProject/bin/Release/net9.0-maccatalyst/*.app  ./publish/maccatalyst/app
+      # - name: Publish maccatalyst app
+      #   run: |
+      #     mkdir -p "./publish/maccatalyst/app/"
+      #     dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=normal --nologo -p:CreatePackage=false -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:CodeSigningKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:EnableCodeSigning=true -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" -p:EnableCodeSigning=true -o "publish/maccatalyst/app" -bl
+      #     cp -r ./src/UnoBlankProject/UnoBlankProject/bin/Release/net9.0-maccatalyst/*.app  ./publish/maccatalyst/app
 
-      - name: Publish maccatalyst pkg
-        run: |
-          mkdir -p "./publish/maccatalyst/pkg1/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" -f net9.0-maccatalyst -c Release -p:MtouchLink=SdkOnly -p:CreatePackage=true -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:CodesignProvision="Test App Mac Catalyst Distribution" -p:CodesignEntitlements="./src/UnoBlankProject/UnoBlankProject/Platforms/MacCatalyst/Entitlements.plist" -p:PackageSigningKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:UseHardenedRuntime=true
+      # - name: Publish maccatalyst pkg
+      #   run: |
+      #     mkdir -p "./publish/maccatalyst/pkg1/"
+      #     dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" -f net9.0-maccatalyst -c Release -p:MtouchLink=SdkOnly -p:CreatePackage=true -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:CodesignProvision="Test App Mac Catalyst Distribution" -p:CodesignEntitlements="./src/UnoBlankProject/UnoBlankProject/Platforms/MacCatalyst/Entitlements.plist" -p:PackageSigningKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:UseHardenedRuntime=true
           
 
-      - name: Publish maccatalyst pkg
-        run: |
-          mkdir -p "./publish/maccatalyst/pkg/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=normal --nologo -p:CreatePackage=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:CodeSigningKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:EnableCodeSigning=true -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" -o "publish/maccatalyst/pkg" -bl
+      # - name: Publish maccatalyst pkg
+      #   run: |
+      #     mkdir -p "./publish/maccatalyst/pkg/"
+      #     dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-maccatalyst --verbosity=normal --nologo -p:CreatePackage=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:CodeSigningKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:EnableCodeSigning=true -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" -o "publish/maccatalyst/pkg" -bl
 
       - name: Prepare desktop publish
         run: |
@@ -64,12 +64,12 @@ jobs:
       - name: Publish mac-desktop app
         run: |
           mkdir -p "./publish/desktop/x64/app/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" -o "publish/desktop/x64/app" -bl
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:PublishSingleFile=true -o "publish/desktop/x64/app"
  
-      - name: Publish mac-desktop bin
-        run: |
-          mkdir -p "./publish/desktop/x64/bin/"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -p:CopyOutputSymbolsToOutputDirectory=false -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" -o "publish/desktop/x64/bin" -bl
+      # - name: Publish mac-desktop bin
+      #   run: |
+      #     mkdir -p "./publish/desktop/x64/bin/"
+      #     dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:CodesignKey=${{ secrets.DEVELOPER_ID_APPLICATION }} -p:PublishSingleFile=true -o "publish/desktop/x64/bin"
 
       # - name: Publish mac-desktop dmg
       #  run: |
