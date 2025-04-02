@@ -11,7 +11,8 @@
 	     PDBs from other projects are still included. Looks like this is the most reliable way to remove PDBs.
 		   Source https://github.com/dotnet/sdk/issues/16975#issuecomment-1689291544 -->
 	<Target Name="DeletePDBFiles" BeforeTargets="Publish">
-		<Delete Files="$(PublishDir)*.pdb">
+    <Message Text="UnoMacOSIncludeDebugSymbols: $(UnoMacOSIncludeDebugSymbols)" Importance="high" />
+		<Delete Files="$(PublishDir)/**/*.pdb">
       <Output TaskParameter="DeletedFiles" ItemName="DeletedList"/>
 		</Delete>
 		<Message Text="Deleted PDB files: @(DeletedList)" Importance="high" />
