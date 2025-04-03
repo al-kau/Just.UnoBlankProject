@@ -74,12 +74,14 @@ jobs:
 
       - name: Notary
         run: |
+          publish_dir="./publish/desktop/x64/app-self-notary"
+        
           # zip bundle
-          ditto -c -k --sequesterRsrc --keepParent "./publish/desktop/x64/app/UnoBlankProject.app" "./publish/desktop/x64/app/UnoBlankProject.app.zip"
+          ditto -c -k --sequesterRsrc --keepParent "$publish_dir/UnoBlankProject.app" "$publish_dir/UnoBlankProject.app.zip"
           
-          xcrun notarytool submit "./publish/desktop/x64/app/UnoBlankProject.app.zip" --wait --keychain-profile "NOTARY_TOOL_PROFILE"
+          xcrun notarytool submit "$publish_dir/UnoBlankProject.app.zip" --wait --keychain-profile "NOTARY_TOOL_PROFILE"
 
-          xcrun stapler staple "./publish/desktop/x64/app/UnoBlankProject.app"
+          xcrun stapler staple "$publish_dir/UnoBlankProject.app"
 
       - name: Publish and Notary mac-desktop
         run: |
