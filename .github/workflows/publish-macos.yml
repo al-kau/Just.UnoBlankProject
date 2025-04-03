@@ -63,21 +63,34 @@ jobs:
 
       - name: Publish mac-desktop app
         run: |
-          mkdir -p "./publish/desktop/x64/app"
-          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 --verbosity=normal --nologo -p:SelfContained=true -p:PackageFormat=app -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:PublishSingleFile=true -p:UnoMacOSIncludeDebugSymbols=false -o "./publish/desktop/x64/app"
+          publish_dir="./publish/desktop/x64/app-self-notary"
+          mkdir -p $publish_dir
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" \
+                         --verbosity=normal --nologo \
+                         --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 \
+                         -p:SelfContained=true -p:PackageFormat=app -p:PublishSingleFile=true -p:UnoMacOSIncludeDebugSymbols=false \
+                         -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+                         -o "$publish_dir"
 
       - name: Notary
         run: |
-
-          ls -alR ./publish/desktop/x64/app
-        
           # zip bundle
           ditto -c -k --sequesterRsrc --keepParent "./publish/desktop/x64/app/UnoBlankProject.app" "./publish/desktop/x64/app/UnoBlankProject.app.zip"
           
           xcrun notarytool submit "./publish/desktop/x64/app/UnoBlankProject.app.zip" --wait --keychain-profile "NOTARY_TOOL_PROFILE"
 
           xcrun stapler staple "./publish/desktop/x64/app/UnoBlankProject.app"
-          
+
+      - name: Publish and Notary mac-desktop
+        run: |
+          publish_dir="./publish/desktop/x64/app-dotnet-notary"
+          mkdir -p $publish_dir
+          dotnet publish "./src/UnoBlankProject/UnoBlankProject/UnoBlankProject.csproj" \
+                         --verbosity=normal --nologo \
+                         --configuration=Release --framework=net9.0-desktop --runtime=osx-x64 \
+                         -p:SelfContained=true -p:PackageFormat=app -p:PublishSingleFile=true -p:UnoMacOSIncludeDebugSymbols=false \
+                         -p:CodesignKey="${{ secrets.DEVELOPER_ID_APPLICATION }}" -p:UnoMacOSNotarizeKeychainProfile="NOTARY_TOOL_PROFILE" \
+                         -o "$publish_dir"
  
       # - name: Publish mac-desktop bin
       #   run: |
